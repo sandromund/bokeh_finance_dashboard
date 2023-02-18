@@ -1,0 +1,83 @@
+{
+  "Miete": [
+    "Miete",
+    "Klinkhammer",
+    "Vogelgesang"
+  ],
+  "Benzin": [
+    "ARAL",
+    "Total",
+    "SHELL",
+    "Tankstelle",
+    "JET ",
+    "BELL "
+  ],
+  "Lebensmittel": [
+    "KENTUCKY FRIED CHICKEN",
+    "ALDI",
+    "STUDIWERK",
+    "NEUKAUF HAUPENTHAL",
+    "Kaufland",
+    "HALL Tabakwaren",
+    "Steingass Hennef",
+    "E-CENTER",
+    "NEUKAUF TRIER",
+    "EDEKA",
+    "STUDIERENDENWERK",
+    "Apotheke",
+    "REWE",
+    "globus baumarkt",
+    "kebap haus",
+    "lebensmittelmaerkte",
+    "NORMA",
+    "LIDL",
+    "NETTO"
+  ],
+  "Krankenkasse": [
+    "Techniker Krankenkasse"
+  ],
+  "Kleidung": [
+    "KIK",
+    "GALERIA",
+    "NEW YORKER",
+    "frisoer",
+    "mister.lady"
+  ],
+  "Unterhaltung": [
+    "PayPal",
+    "BUCHHANDLUNG",
+    "AMAZON",
+    "blocschokolade",
+    "hotel"
+  ],
+  "Amt": [
+    "Stadtkasse Hennef"
+  ],
+  "Abo": [
+    "BfS",
+    "RSG Group Gmbh",
+    "NETFLIX",
+    "1u1 Telecom"
+  ],
+  "Bargeld": [
+    "SPARKASSE TRIER",
+    "NR00002167",
+    "NR00002160"
+  ],
+  "Versicherung": [
+    "LVM "
+  ],
+  "Investment": [
+    "Sandro Mund",
+    "solarisBank AG"
+  ],
+  "Konto": [
+    "siehe Anlage Abrechnung",
+    "Entgeltabrechnung",
+    "chipTAN ",
+    "Rechnung Rückgabe Lastschrift"
+  ],
+  "Semesterbeitrag": [
+    "hochschule trier"
+  ]
+}
