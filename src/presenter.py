@@ -12,5 +12,12 @@ class Presenter:
         self.view = view
 
     def create_report(self):
-        self.view.add_table_plot(self.model.filter_columns(self.data))
+        data = self.model.filter_columns(self.data)
+        data = self.model.preprocess_data(data)
+
+        self.view.add_table_plot(data)
+        # self.view.add_table_plot(self.model.get_income_by_month(data))
+        self.view.add_pie_chart(self.model.get_income_by_month(data=data), title="Income per month")
+        self.view.add_pie_chart(self.model.get_spending_by_month(data), title="Spending per month")
+
         self.view.show()
