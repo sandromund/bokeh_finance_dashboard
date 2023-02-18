@@ -130,3 +130,6 @@ dmypy.json
 _GELD
 .idea
 src/*.csv
+data/2020.CSV
+data/2021.CSV
+data/2022.CSV
