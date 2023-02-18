@@ -1,15 +1,13 @@
-import bokeh as bk
-import pandas as pd
-from bokeh.models import ColumnDataSource
-from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
-from bokeh.plotting import figure, show
-from bokeh.layouts import row, column
+import calendar
+from math import pi
 
+import pandas as pd
+from bokeh.layouts import row, column
+from bokeh.models import ColumnDataSource
+from bokeh.models.widgets import DataTable, TableColumn
 from bokeh.palettes import Category20c
 from bokeh.plotting import figure, show
 from bokeh.transform import cumsum
-from math import pi
-import calendar
 
 
 class View:
@@ -24,20 +22,19 @@ class View:
         data_table = DataTable(
             columns=[TableColumn(field=Ci, title=Ci) for Ci in
                      data.columns],
-            source=bk.models.ColumnDataSource(data=data),
+            source=ColumnDataSource(data=data),
             sizing_mode='stretch_both')
         self.table_column.append(data_table)
 
-    def add_pie_chart(self, series: pd.Series, title="Pie Chart"):
-        print(series)
+    def add_pie_chart(self, series: pd.Series, title="Pie Chart", map_months=False):
         data = pd.DataFrame()
         data['angle'] = series / series.sum() * 2 * pi
         data['color'] = Category20c[len(series)]
-        data["country"] = [self.months.get(i) for i in  series.index]
+        if map_months:
+            data["country"] = [self.months.get(i) for i in series.index]
+        else:
+            data["country"] = series.index
         data["value"] = [i[0] for i in series.values]
-
-        print(data["value"])
-
         p = figure(height=350, title=title, toolbar_location=None,
                    tools="hover", tooltips="@country: @value")
 
@@ -52,4 +49,4 @@ class View:
 
     def show(self):
         show(column(row(self.table_column),
-                    row(self.pie_column), sizing_mode="stretch_both"),)
+                    row(self.pie_column), sizing_mode="stretch_both"), )
