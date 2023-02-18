@@ -23,13 +23,11 @@ class Model:
             self.spending = json.load(f)
 
     def __classify_by_recipient_and_purpose(self, row):
-        to_classify = None
         for label in self.spending.keys():
             for keyword in self.spending[label]:
                 for col in [self.recipient, self.purpose]:
                     if type(row[col]) != np.float and keyword.lower() in row[col].lower():
                         return label
-        # print(to_classify)
         return "other"
 
     def add_spending_label(self, data: pd.DataFrame) -> pd.DataFrame:
@@ -68,3 +66,26 @@ class Model:
         group = data.groupby(data[self.label]).sum().round(4)
         print(group)
         return group
+
+    def get_spending_by_month_and_label(self, data: pd.DataFrame) -> pd.DataFrame:
+        data = data[data[self.amount] < 0]
+        data.loc[:, self.date] = pd.to_datetime(data[self.date])
+
+        months = sorted(list(data[self.date].dt.month.unique()))
+        labels = list(data[self.label].unique())
+
+        l = {}
+        for label in labels:
+            for month in months:
+                v = abs(data[(data[self.date].dt.month == month) & (data[self.label] == label)][self.amount].sum())
+                if l.get(label) is None:
+                    l[label] = [v]
+                else:
+                    l[label].append(v)
+
+        df_new = pd.DataFrame(l)
+        df_new["Month"] = months
+        df_new.index = months
+        print(df_new)
+
+        return df_new.round(4)
