@@ -23,4 +23,6 @@ class Presenter:
         self.view.add_pie_chart(self.model.get_spending_by_month(data), map_months=True, title="Spending per month")
         self.view.add_pie_chart(self.model.get_spending_by_label(data), title="Spending by group")
 
+        self.view.add_bar_chart(self.model.get_spending_by_month_and_label(data))
+
         self.view.show()
