@@ -18,6 +18,7 @@ class View:
         self.table_column = []
         self.pie_column = []
 
+
     def add_table_plot(self, data):
         data_table = DataTable(
             columns=[TableColumn(field=Ci, title=Ci) for Ci in
