@@ -14,6 +14,7 @@ class Presenter:
     def create_report(self):
         data = self.model.filter_columns(self.data)
         data = self.model.preprocess_data(data)
+        data = self.model.add_spending_label(data)
 
         self.view.add_table_plot(data)
         # self.view.add_table_plot(self.model.get_income_by_month(data))
