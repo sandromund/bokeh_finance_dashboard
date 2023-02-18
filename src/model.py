@@ -1,7 +1,7 @@
-import numpy as np
-
-import pandas as pd
 import json
+
+import numpy as np
+import pandas as pd
 
 pd.options.mode.chained_assignment = None
 
@@ -16,19 +16,21 @@ class Model:
         self.amount = "Betrag"
         self.recipient = "Beguenstigter/Zahlungspflichtiger"
         self.purpose = "Verwendungszweck"
+        self.label = "Label"
 
         self.spending_dict_path = spending_dict_path
         with open(self.spending_dict_path, 'r') as f:
             self.spending = json.load(f)
 
     def __classify_by_recipient_and_purpose(self, row):
+        to_classify = None
         for label in self.spending.keys():
             for keyword in self.spending[label]:
-                if type(row[self.recipient]) == np.float:
-                    continue
-                if keyword in row[self.recipient] or keyword in row[self.purpose]:
-                    return label
-        return np.nan
+                for col in [self.recipient, self.purpose]:
+                    if type(row[col]) != np.float and keyword.lower() in row[col].lower():
+                        return label
+        # print(to_classify)
+        return "other"
 
     def add_spending_label(self, data: pd.DataFrame) -> pd.DataFrame:
         label_list = []
@@ -37,7 +39,7 @@ class Model:
                 label_list.append("Income")
             else:
                 label_list.append(self.__classify_by_recipient_and_purpose(row))
-        data["label"] = label_list
+        data[self.label] = label_list
         return data
 
     def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
@@ -59,4 +61,10 @@ class Model:
         data = data[data[self.amount] < 0]
         data.loc[:, self.date] = pd.to_datetime(data[self.date])
         group = data.groupby(data[self.date].dt.month).sum().round(4)
+        return group
+
+    def get_spending_by_label(self, data: pd.DataFrame) -> pd.Series:
+        data = data[data[self.amount] < 0]
+        group = data.groupby(data[self.label]).sum().round(4)
+        print(group)
         return group
