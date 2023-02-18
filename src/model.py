@@ -64,7 +64,6 @@ class Model:
     def get_spending_by_label(self, data: pd.DataFrame) -> pd.Series:
         data = data[data[self.amount] < 0]
         group = data.groupby(data[self.label]).sum().round(4)
-        print(group)
         return group
 
     def get_spending_by_month_and_label(self, data: pd.DataFrame) -> pd.DataFrame:
@@ -86,6 +85,4 @@ class Model:
         df_new = pd.DataFrame(l)
         df_new["Month"] = months
         df_new.index = months
-        print(df_new)
-
         return df_new.round(4)
